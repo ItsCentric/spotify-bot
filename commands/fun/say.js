@@ -7,5 +7,3 @@ module.exports = {
         message.reply(message.content.slice(1))
     }
 }
-
-// TODO: FIX THIS
