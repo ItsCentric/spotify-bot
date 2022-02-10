@@ -3,7 +3,8 @@ module.exports = {
     category: "fun",
     permissions: [],
     devOnly: false,
-    run: async ({client, message, prefix, args}) => {
-        message.reply(message.content.slice(1))
+    run: async ({client, message, args}) => {
+        msgSlice = message.content.slice(4).trim()
+        message.reply(msgSlice)
     }
 }
