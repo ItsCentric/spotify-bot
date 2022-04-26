@@ -1,4 +1,8 @@
-const fs = require("fs")
+const fs = require("fs");
+const fetch = require("node-fetch");
+
+// const SPOTIFY_CLIENT_ID = process.env['SPOTIFY_CLIENT_ID'];
+// const SPOTIFY_CLIENT_SECRET = process.env['SPOTIFY_CLIENT_SECRET'];
 
 const getFiles = (path, ending) => {
     return fs.readdirSync(path).filter(f=> f.endsWith(ending))

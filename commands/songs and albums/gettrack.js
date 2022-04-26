@@ -1,4 +1,5 @@
-const { getToken } = require("../../util/functions")
+const { getToken } = require("../../util/functions");
+const fetch = require("node-fetch");
 
 module.exports = {
     name: "gettrack",

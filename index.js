@@ -2,6 +2,11 @@ const Discord = require("discord.js");
 const keepAlive = require("./server");
 require("dotenv").config();
 
+/* run in shell every pull in repl.it:
+npm init -y && npm i --save-dev node@16 && npm config set prefix=$(pwd)/node_modules/node && export PATH=$(pwd)/node_modules/node/bin:$PATH */
+
+// const DISCORD_CLIENT_TOKEN = process.env["DISCORD_CLIENT_TOKEN"];
+
 const client = new Discord.Client({
     intents: [
         "GUILDS",
