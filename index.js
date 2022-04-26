@@ -1,4 +1,5 @@
 const Discord = require("discord.js");
+const keepAlive = require("./server");
 require("dotenv").config();
 
 const client = new Discord.Client({
@@ -46,4 +47,5 @@ client.on("interactionCreate", (interaction) => {
 
 module.exports = bot;
 
+keepAlive();
 client.login(process.env.client_token);
