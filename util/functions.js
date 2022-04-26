@@ -1,4 +1,3 @@
-const { default: axios } = require("axios");
 const fs = require("fs")
 
 const getFiles = (path, ending) => {
@@ -6,9 +5,8 @@ const getFiles = (path, ending) => {
 }
 
 const getToken = async () => {
-    const res = await axios({
+    const res = await fetch("https://accounts.spotify.com/api/token", {
         method: "POST",
-        url: "https://accounts.spotify.com/api/token",
         headers: {
             "Content-Type" : "application/x-www-form-urlencoded",
             "Authorization" : 'Basic ' + new Buffer.from(process.env.client_id + ':' + process.env.client_secret).toString('base64')
@@ -16,8 +14,10 @@ const getToken = async () => {
         data: {
             grant_type: "client_credentials",
         }
-    })
-    return res.access_token
+    });
+
+    const data = await res.json();
+    return data.access_token
 }
 
 module.exports = {
