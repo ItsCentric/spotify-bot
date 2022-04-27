@@ -8,6 +8,11 @@ const run = async (client, interaction) => {
     tokenParam = token;
     const name = interaction.options.getString("name");
     spotifySearch(encodeURIComponent(name), "artist", 1, (searchResults, tokenParam) => {
+      if(searchResults.artists.items.length == 0) {
+        interaction.reply(`Cannot find artist with the name "${name}"`)
+        return
+      }
+      
       var id = searchResults.artists.items[0].id;
           
       var options = {

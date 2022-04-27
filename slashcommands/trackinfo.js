@@ -10,7 +10,13 @@ const run = async (client, interaction) => {
     tokenParam = token;
     const name = interaction.options.getString("name")
     spotifySearch(encodeURIComponent(name), "track", 1, (searchResults, tokenParam) => {
+      if(searchResults.tracks.items.length == 0) {
+        interaction.reply(`Cannot find song with the name "${name}"`)
+        return
+      }
+      
       var id = searchResults.tracks.items[0].id;
+      
       
       var options = {
         'method': 'GET',

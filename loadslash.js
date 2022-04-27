@@ -16,7 +16,8 @@ let bot = {
     owners: "384518472383725568"
 };
 
-const guildID = "796184020236894228";
+const guildID = "796184020236894228"; //homie hangout
+// const guildID = "964565056320860222"; // alabasta
 
 client.slashcommands = new Discord.Collection();
 client.loadSlashCommands = (bot, reload) => require("./handlers/slashcommands")(bot, reload);    
