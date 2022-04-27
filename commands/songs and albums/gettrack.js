@@ -1,5 +1,5 @@
 const { getToken } = require("../../util/functions");
-const fetch = require("node-fetch");
+const request = require("request");
 
 module.exports = {
     name: "gettrack",
@@ -7,15 +7,21 @@ module.exports = {
     permissions: [],
     devOnly: false,
     run: async ({client, message, args}) => {
-        let token = getToken();
+      getToken((result) => {
         let id =  message.content.slice(9).trim()
-        const result = await fetch(`https://api.spotify.com/v1/tracks/${id}`, {
-            method: "GET",
-            headers: { "Authorization": "Bearer " + token }
+        
+        var options = {
+          'method': 'GET',
+          'url': `https://api.spotify.com/v1/tracks/${id}`,
+          'headers': {
+            'Authorization': `Bearer ${result}`
+          },
+          json: true
+        };
+        request(options, (error, response, body) => {
+          if (error) throw new Error(error);
+          message.reply(`The name of the song you requested is: ${body.name}`);
         });
-
-        const data = await result.json();
-        message.reply("The name of the song you requested is: ${data.name}");
+      });
     }
 }
-// TODO: maybe try to fix this
