@@ -1,4 +1,6 @@
 const Discord = require("discord.js");
+// const { REST } = require('@discordjs/rest');
+// const { Routes } = require('discord-api-types/v9');
 
 const DISCORD_CLIENT_TOKEN = process.env["DISCORD_CLIENT_TOKEN"];
 

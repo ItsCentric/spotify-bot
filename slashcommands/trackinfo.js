@@ -33,7 +33,7 @@ const run = async (client, interaction) => {
         const durationMinutes = (seconds - durationSeconds) / 60
         const releaseDate = (response.body.album.release_date).substring(5, 7) + "/" + (response.body.album.release_date).substring(8) + "/" + (response.body.album.release_date).substring(0, 4)
         const trackInfo = new MessageEmbed()
-          .setColor("#fff")
+          .setColor("#ffffff")
           .setTitle(response.body.name)
           .setURL(response.body.external_urls.spotify)
           .setImage(response.body.album.images[0].url)
