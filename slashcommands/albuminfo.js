@@ -25,21 +25,24 @@ const run = async (client, interaction) => {
       };
       request(options, async (error, response) => {
         if (error) throw new Error(error);
-        // for (i=0; i<=response.body.artists.length; i++) {
-          
-        // }
+
+        const releaseDate = (response.body.release_date).substring(5, 7) + "/" + (response.body.release_date).substring(8) + "/" + (response.body.release_date).substring(0, 4);
+        let artistNames = [];
+
+        for (i = 0; i < response.body.artists.length; i++) {
+          artistNames.push(response.body.artists[i].name);
+        }
         const albumInfo = new MessageEmbed()
           .setColor("#ffffff")
           .setTitle(response.body.name)
           .setURL(response.body.external_urls.spotify)
           .setImage(response.body.images[0].url)
           .addFields(
-            {name: "Artists", value: response.body.artists[0].name, inline: true},
+            {name: "Artists", value: artistNames.join(', '), inline: true},
             {name: "# of Tracks", value: `${response.body.total_tracks}`, inline: true},
-            {name: "Release Date", value: response.body.release_date, inline: true}
+            {name: "Release Date", value: releaseDate, inline: true}
           )
-
-        console.log('interaction triggered')
+        
         await interaction.reply({embeds: [albumInfo]})
       })
     });
@@ -54,7 +57,7 @@ module.exports = {
     {
       name: "name",
       description: "The name of the album you are requesting.",
-      type: "STRING",
+      type: 3,
       required: true
     }
   ],

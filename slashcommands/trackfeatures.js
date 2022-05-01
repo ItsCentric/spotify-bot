@@ -52,7 +52,7 @@ module.exports = {
     {
       name: "name",
       description: "The name of the track you are requesting.",
-      type: "STRING",
+      type: 3,
       required: true
     }
   ],

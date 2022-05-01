@@ -9,9 +9,16 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@discordjs/opus": "github:discordjs/opus",
+    "@discordjs/rest": "^0.4.1",
+    "@discordjs/voice": "^0.9.0",
+    "discord-api-types": "^0.32.0",
+    "discord-player": "^5.2.2",
     "discord.js": "^13.6.0",
     "dotenv": "^16.0.0",
     "express": "^4.18.0",
+    "ffmpeg-static": "^5.0.0",
+    "intl": "^1.2.5",
     "querystring": "^0.2.1",
     "request": "^2.88.2"
   },

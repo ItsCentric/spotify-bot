@@ -1,14 +1,16 @@
 const { artistEmbeds } = require('../slashcommands/artistinfo');
 
 var topTrackNumber = 0;
+/* artist info: page 0 
+   top tracks (1-3): pages 1,2,3 */
 var currentPage = 0;
 var currentSlashCommand;
 
 module.exports = {
   name: "artistinfobutton",
   run: async (bot, interaction, parameters) => {
-    console.log(artistEmbeds.slashCommandId)
 
+    // if the current cached artistinfo slash command doesnt match the most recent one, reset currentPage and topTrackNumber variables
     if (artistEmbeds.slashCommandId !== currentSlashCommand) {
       currentSlashCommand = artistEmbeds.slashCommandId;
       currentPage = 0;

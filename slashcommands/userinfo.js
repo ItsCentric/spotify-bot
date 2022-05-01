@@ -38,7 +38,7 @@ module.exports = {
     {
       name: "id",
       description: "The ID of the user you are requesting.",
-      type: "STRING",
+      type: 3,
       required: true
     }
   ],

@@ -1,8 +1,6 @@
-const { getToken, spotifySearch } = require("../util/functions");
+const { getToken, spotifySearch, roundTo } = require("../util/functions");
 const request = require("request");
 const { MessageEmbed } = require("discord.js");
-
-// fix this thingy
 
 const run = async (client, interaction) => {
   var tokenParam;
@@ -29,16 +27,26 @@ const run = async (client, interaction) => {
       request(options, async (error, response) => {
         if (error) throw new Error(error);
         const seconds = response.body.duration_ms / 1000
-        const durationSeconds = seconds % 60
+        let durationSeconds = seconds % 60;
         const durationMinutes = (seconds - durationSeconds) / 60
         const releaseDate = (response.body.album.release_date).substring(5, 7) + "/" + (response.body.album.release_date).substring(8) + "/" + (response.body.album.release_date).substring(0, 4)
+        let artistNames = []
+        
+        if (durationSeconds < 10) {
+          durationSeconds = String(durationSeconds / 10);
+          durationSeconds = durationSeconds[0] + durationSeconds[2]
+        }
+        for (i = 0; i < response.body.artists.length; i++) {
+          artistNames.push(response.body.artists[i].name)
+        }
+
         const trackInfo = new MessageEmbed()
           .setColor("#ffffff")
           .setTitle(response.body.name)
           .setURL(response.body.external_urls.spotify)
           .setImage(response.body.album.images[0].url)
           .addFields(
-            {name: "Artist", value: response.body.artists[0].name, inline: true},
+            {name: "Artists", value: artistNames.join(', '), inline: true},
             {name: "Release Date", value: releaseDate, inline: true},
             {name: "Duration", value: `${Math.round(durationMinutes)}:${Math.round(durationSeconds)}`, inline: true}
           )
@@ -57,7 +65,7 @@ module.exports = {
     {
       name: "name",
       description: "The name of the track you are requesting.",
-      type: "STRING",
+      type: 3,
       required: true
     }
   ],

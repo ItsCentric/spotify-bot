@@ -1,14 +1,16 @@
 const Discord = require("discord.js");
 const keepAlive = require("./server");
+const { Player } = require('discord-player')
 
 const DISCORD_CLIENT_TOKEN = process.env["DISCORD_CLIENT_TOKEN"];
 
 const client = new Discord.Client({
-    intents: [
-        "GUILDS",
-        "GUILD_MESSAGES",
-        "GUILD_MEMBERS"
-    ]
+  intents: [
+    "GUILDS",
+    "GUILD_MESSAGES",
+    "GUILD_MEMBERS",
+    'GUILD_VOICE_STATES'
+  ]
 });
 
 let bot = {
@@ -16,6 +18,13 @@ let bot = {
     prefix: "+",
     owners: "384518472383725568"
 };
+
+client.player = new Player(client, {
+  ytdlOptions: {
+    quality: 'highestaudio',
+    highWaterMark: 1 << 25
+  }
+})
 
 client.commands = new Discord.Collection();
 client.events = new Discord.Collection();
