@@ -46,7 +46,7 @@ const run = async (client, interaction) => {
         }
 
         artistEmbeds.artistInfo = new MessageEmbed()
-          .setColor("#ffffff")
+          .setColor("#38d65e")
           .setTitle(response.body.name)
           .setURL(response.body.external_urls.spotify)
           .setImage(response.body.images[0].url)

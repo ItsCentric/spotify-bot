@@ -17,7 +17,7 @@ const run = async (client, interaction) => {
     request(options, async (error, response) => {
       if (error) throw new Error(error);
       const userInfo = new MessageEmbed()
-        .setColor("#ffffff")
+        .setColor("#38d65e")
         .setTitle(response.body.display_name)
         .setURL(response.body.external_urls.spotify)
         .setThumbnail(response.body.images[0].url)

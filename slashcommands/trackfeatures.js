@@ -26,7 +26,7 @@ const run = async (client, interaction) => {
       request(options, async (error, response, body) => {
         if (error) throw new Error(error);
         const trackFeatures = new MessageEmbed()
-          .setColor("#ffffff")
+          .setColor("#38d65e")
           .setTitle(`${name[0].toUpperCase() + name.substring(1)}'s Track Features`)
           .addFields(
             {name: "Acousticness", value: `${response.body.acousticness}`, inline: true},

@@ -56,9 +56,23 @@ const roundTo = (n, digits) => {
   return +(test.toFixed(digits));
 }
 
+const convertDuration = (duration, callback) => {
+  const seconds = duration / 1000
+  let durationSeconds = Math.round(seconds % 60);
+  const durationMinutes = Math.round((seconds - durationSeconds) / 60)
+
+  if (durationSeconds < 10) {
+    durationSeconds = String(durationSeconds / 10);
+    durationSeconds = durationSeconds[0] + durationSeconds[2]
+  }
+  let newDuration = `${durationMinutes}:${durationSeconds}`
+  callback(newDuration)
+}
+
 module.exports = {
   getFiles,
   getToken,
   spotifySearch,
-  roundTo
+  roundTo,
+  convertDuration
 }

@@ -1,18 +1,19 @@
-const { MessageEmbed } = require('discord.js')
+const { MessageEmbed } = require('discord.js');
 
 const run = async (client, interaction) => {
-  const queue = client.player.getQueue(interaction.guildId)
+  const queue = client.player.getQueue(interaction.guildId);
 
-  if (!queue || !queue.playing) return await interaction.reply('There are no songs in the queue')
+  if (!queue || !queue.playing) return await interaction.reply('There are no songs in the queue');
 
-  const currentSong = queue.current
+  const currentSong = queue.current;
   
-  queue.skip()
+  queue.skip();
   await interaction.reply({
     embeds: [
       new MessageEmbed()
         .setDescription(`Skipped ${currentSong.title}`)
         .setThumbnail(currentSong.thumbnail)
+        .setColor('#38d65e');
     ]
   })
 }

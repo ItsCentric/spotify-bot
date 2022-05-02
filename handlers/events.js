@@ -51,4 +51,8 @@ function initEvents(bot) {
   client.on("interactionCreate", (interaction) => {
     triggerEventHandler(bot, "interactionCreate", interaction)
   })
+
+  client.player.on('trackStart', (interaction) => {
+    triggerEventHandler(bot, 'trackStart', interaction)
+  })
 }

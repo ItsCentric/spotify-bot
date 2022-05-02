@@ -1,65 +1,72 @@
 const { MessageEmbed } = require("discord.js");
 const { QueryType } = require("discord-player")
 
+var channelId;
+var slashCommandInfo = {
+  channelId
+}
+
 const run = async (client, interaction) => {
-  if (!interaction.member.voice.channel) return interaction.reply('You are not in a voice channel.')
+  slashCommandInfo.channelId = interaction.channelId;
+  if (!interaction.member.voice.channel) return interaction.reply('You are not in a voice channel.');
 
-  const queue = await client.player.createQueue(interaction.guild)
-  if (!queue.connection) await queue.connect(interaction.member.voice.channel)
+  const queue = await client.player.createQueue(interaction.guild);
+  if (!queue.connection) await queue.connect(interaction.member.voice.channel);
 
-  let embed = new MessageEmbed()
+  let embed = new MessageEmbed();
 
   if (interaction.options.getSubcommand() === 'song') {
-    let url = interaction.options.getString('url')
+    let url = interaction.options.getString('url');
     const result = await client.player.search(url, {
       requestedBy: interaction.user,
       searchEngine: QueryType.YOUTUBE_VIDEO
-    })
+    });
 
-    if (result.tracks.length === 0) return interaction.reply("Couldn't find a song with that URL.")
+    if (result.tracks.length === 0) return interaction.reply("Couldn't find a song with that URL.");
 
-    const song = result.tracks[0]
-    await queue.addTrack(song)
+    const song = result.tracks[0];
+    await queue.addTrack(song);
     embed
       .setDescription(`**[${song.title}](${song.url})** has been added to the queue`)
-    .setThumbnail(song.thumbnail)
-    .setFooter({ text: `Duration: ${song.duration}`})
+      .setThumbnail(song.thumbnail)
+      .setColor('#38d65e')
+      .setFooter({ text: `Duration: ${song.duration}`});
   }
   else if (interaction.options.getSubcommand() === 'playlist') {
-    let url = interaction.options.getString('url')
+    let url = interaction.options.getString('url');
     const result = await client.player.search(url, {
       requestedBy: interaction.user,
       searchEngine: QueryType.YOUTUBE_PLAYLIST
-    })
+    });
 
-    if (result.tracks.length === 0) return interaction.reply("Couldn't find a playlist with that URL.")
+    if (result.tracks.length === 0) return interaction.reply("Couldn't find a playlist with that URL.");
 
-    const playlist = result.playlist
-    await queue.addTracks(result.tracks)
+    const playlist = result.playlist;
+    await queue.addTracks(result.tracks);
     embed
       .setDescription(`**${result.tracks.length} songs from [${playlist.title}](${playlist.url})** has been added to the queue`)
-    .setThumbnail(playlist.thumbnail)
+      .setThumbnail(playlist.thumbnail);
     // .setFooter({ text: `Duration: ${playlist.duration}`})
   }
   else if (interaction.options.getSubcommand() === 'search') {
-    let url = interaction.options.getString('query')
+    let url = interaction.options.getString('query');
     const result = await client.player.search(url, {
       requestedBy: interaction.user,
       searchEngine: QueryType.AUTO
-    })
+    });
 
-    if (result.tracks.length === 0) return interaction.reply("Couldn't find a song with that URL.")
+    if (result.tracks.length === 0) return interaction.reply("Couldn't find a song with that URL.");
 
-    const song = result.tracks[0]
-    await queue.addTrack(song)
+    const song = result.tracks[0];
+    await queue.addTrack(song);
     embed
       .setDescription(`**[${song.title}](${song.url})** has been added to the queue`)
-    .setThumbnail(song.thumbnail)
-    .setFooter({ text: `Duration: ${song.duration}`})
+      .setThumbnail(song.thumbnail)
+      .setFooter({ text: `Duration: ${song.duration}`});
   }
 
-  if (!queue.playing) await queue.play()
-  await interaction.reply({ embeds: [embed]})
+  if (!queue.playing) await queue.play();
+  await interaction.reply({ embeds: [embed]});
 }
 
 module.exports = {
@@ -107,5 +114,6 @@ module.exports = {
       ]
     }
   ],
+  slashCommandInfo,
   run
 }
